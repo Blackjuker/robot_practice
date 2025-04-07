@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.2.2 (Python 3.12.2 on win32)" generated="2025-04-08T01:03:26.797933" rpa="false" schemaversion="5">
+<suite id="s1" name="TC1 GET Request" source="c:\Users\Arnaud\Documents\Log\robot_entretien2\TestCases\TC1_GET_Request.robot">
+<test id="s1-t1" name="Get_weatherInfo" line="13">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-04-08T01:03:28.166548" level="INFO">Creating Session using : alias=myssion, url=https://api.restful-api.dev, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>myssion</arg>
+<arg>${base_url}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-04-08T01:03:28.164571" elapsed="0.008559"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-04-08T01:03:28.560830" level="INFO">GET Request : url=https://api.restful-api.dev/objects/7 
+ path_url=/objects/7 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-04-08T01:03:28.561339" level="INFO">GET Response : url=https://api.restful-api.dev/objects/7 
+ status=200, reason= 
+ headers={'Date': 'Mon, 07 Apr 2025 23:03:28 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Vary': 'Origin, Access-Control-Request-Method, Access-Control-Request-Headers', 'cf-cache-status': 'DYNAMIC', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=FbkkdwVCkryr1KTAVhuwK9Hti6FwhVpKLjBU91%2B9soNYkMfi5R%2FsSKr2dZySNu9KB8DbYFoKPvlQ0b%2BYoopCcZJxvMjZN4sqqwsAupDFnq6NbZnP3aA%2Fqrjk%2FwsPUx8ZllGIbIvItgNhzbFBMfLiIsxS"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}', 'Server': 'cloudflare', 'CF-RAY': '92cd2893cee7d0b6-CDG', 'Content-Encoding': 'gzip', 'alt-svc': 'h3=":443"; ma=86400', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=3913&amp;min_rtt=3738&amp;rtt_var=1753&amp;sent=5&amp;recv=6&amp;lost=0&amp;retrans=0&amp;sent_bytes=2853&amp;recv_bytes=778&amp;delivery_rate=793002&amp;cwnd=252&amp;unsent_bytes=0&amp;cid=57f67f3501473142&amp;ts=242&amp;x=0"'} 
+ body={"id":"7","name":"Apple MacBook Pro 16","data":{"year":2019,"price":1849.99,"CPU model":"Intel Core i9","Hard disk size":"1 TB"}} 
+ </msg>
+<msg time="2025-04-08T01:03:28.562864" level="INFO">c:\Users\Arnaud\Documents\Log\robot_entretien2\.venv\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.restful-api.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-04-08T01:03:28.567879" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>myssion</arg>
+<arg>/objects/${computer}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-04-08T01:03:28.176128" elapsed="0.391751"/>
+</kw>
+<kw name="Convert To String" owner="BuiltIn">
+<msg time="2025-04-08T01:03:28.571962" level="INFO">${status_code} = 200</msg>
+<var>${status_code}</var>
+<arg>${response.status_code}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="PASS" start="2025-04-08T01:03:28.568879" elapsed="0.003559"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${status_code}</arg>
+<arg>200</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-04-08T01:03:28.576041" elapsed="0.002019"/>
+</kw>
+<kw name="Convert To String" owner="BuiltIn">
+<msg time="2025-04-08T01:03:28.592644" level="INFO">${body} = {"id":"7","name":"Apple MacBook Pro 16","data":{"year":2019,"price":1849.99,"CPU model":"Intel Core i9","Hard disk size":"1 TB"}}</msg>
+<var>${body}</var>
+<arg>${response.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="PASS" start="2025-04-08T01:03:28.590106" elapsed="0.002538"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${body}</arg>
+<arg>Apple MacBook Pro 16</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2025-04-08T01:03:28.650914" elapsed="0.001062"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-04-08T01:03:28.672185" level="INFO">${contentTypeValue} = application/json</msg>
+<var>${contentTypeValue}</var>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-04-08T01:03:28.670147" elapsed="0.002551"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${contentTypeValue}</arg>
+<arg>application/json</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2025-04-08T01:03:28.686284" elapsed="0.001496"/>
+</kw>
+<status status="PASS" start="2025-04-08T01:03:28.162650" elapsed="0.536198"/>
+</test>
+<status status="PASS" start="2025-04-08T01:03:26.815060" elapsed="1.942776"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="TC1 GET Request" id="s1" pass="1" fail="0" skip="0">TC1 GET Request</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
